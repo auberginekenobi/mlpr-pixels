@@ -2,18 +2,25 @@
 %data = matfile('imgregdata.mat');
 %data.xtr(1,1)
 
-pkg load signal;
+%pkg load signal;
 
 load('imgregdata');
-xtr = downsample(xtr,100) / 63;
-ytr = downsample(ytr,100) / 63;
-xte = downsample(xte,100) / 63;
-yte = downsample(yte,100) / 63;
-xtr(1,1)
+% xtr = downsample(xtr,100) / 63;
+% ytr = downsample(ytr,100) / 63;
+% xte = downsample(xte,100) / 63;
+% yte = downsample(yte,100) / 63;
+xtr = xtr / 63;
+xte = xte / 63;
+ytr = ytr / 63;
+yte = yte / 63;
+%xtr(1,1)
 stdev_xtr=std(xtr,0,2);
 % 1a
-%%figure
-%%hist(stdev_xtr,64)
+figure
+hist(stdev_xtr,64)
+title('1a. Standard deviations of the pixels in each patch in the xtr data set');
+xlabel('Standard deviation');
+ylabel('Number of instances');
 %{
 1a
 We use 64 bins so that each bin corresponds to a single greyscale pixel value.
@@ -27,17 +34,21 @@ of the training set.
 1c
 %}
 % find a flat and a nonflat patch
+foundpatch = false;
+foundnonpatch = false;
 flatpatch = 0;
 nonflatpatch = 0;
-n=0;
-while flatpatch == 0 && nonflatpatch==0 && n<=70000
-  if (stdev_xtr(n)>(4/64))
-    "found nonpatch"
-    nonflatpatch=xtr(n);
+n=1;
+while (foundpatch == false || foundnonpatch==false) && n<=70000
+  if (stdev_xtr(n)>(4/64) && ~foundnonpatch)
+    'found nonpatch'
+    foundnonpatch = true;
+    nonflatpatch=xtr(n,:);
   end
-  if (stdev_xtr(n)<(4/64))
-    "found patch"
-    flatpatch=xtr(n);
+  if (stdev_xtr(n)<(4/64)&& ~foundpatch)
+    'found patch'
+    foundpatch = true;
+    flatpatch=xtr(n,:);
   end
   n = n+1;
 end
