@@ -1,8 +1,4 @@
-%load imgregdata.mat
-%data = matfile('imgregdata.mat');
-%data.xtr(1,1)
 
-%pkg load signal;
 
 load('imgregdata');
 % xtr = downsample(xtr,100) / 63;
@@ -18,7 +14,7 @@ stdev_xtr=std(xtr,0,2);
 % 1a
 figure
 hist(stdev_xtr,64)
-title('1a. Standard deviations of the pixels in each patch in the xtr data set');
+title({'1a. Standard deviations of the pixels', 'in each patch in the xtr data set'});
 xlabel('Standard deviation');
 ylabel('Number of instances');
 %{
@@ -52,16 +48,19 @@ while (foundpatch == false || foundnonpatch==false) && n<=70000
   end
   n = n+1;
 end
+% resize each
+flatpatch = transpose(reshape(horzcat(flatpatch,ones(1,18)),35,30));
+nonflatpatch = transpose(reshape(horzcat(nonflatpatch,ones(1,18)),35,30));
 % display each in its own figure.
 figure
 colormap gray;
 imagesc(flatpatch,[0,1]);
+title('1c. A Flat Image Patch from Dataset xtr');
+
 figure
 colormap gray;
 imagesc(nonflatpatch,[0,1]);
+title('1c. A Non-Flat Image Patch from Dataset xtr');
 
-%{
-2a
-Here is a comment on the structure of the below plot.
-%}
+
 
