@@ -13,12 +13,12 @@ pkg load signal;
 xtrnfDown = downsample(xtrnf,20);
 ytrnfDown = downsample(ytrnf,20);
 
-% figure;
-% scatter3(xtrnfDown(:,end),xtrnfDown(:,end-34),ytrnfDown);
-% title({'2a. Relationship of label pixel to those to the left and above it,','from 863 elements of the xtr\_nt set.'});
-% xlabel('left of label');
-% ylabel('above label');
-% zlabel('label');
+%figure;
+%scatter3(xtrnfDown(:,end),xtrnfDown(:,end-34),ytrnfDown);
+%title({'2a. Relationship of label pixel to those to the left and above it,','from 863 elements of the xtr\_nt set.'});
+%xlabel('left of label');
+%ylabel('above label');
+%zlabel('label');
 
 %{
 2b
@@ -57,13 +57,13 @@ squerror = (transpose(trpredictions) - ytrnf).^2;
 trainrmse = sqrt(mean(squerror))
 
 % visualize
-[dim1, dim2] = meshgrid(0:0.01:1,0:0.01:1);
-ysurf = [[dim1(:), dim2(:)], ones(numel(dim1),1)]*w;
-% figure;
-% surf(dim1, dim2, reshape(ysurf, size(dim1)))
-% hold on
-% scatter3(xtrnfDown(:,end),xtrnfDown(:,end-34),ytrnfDown);
-% title({'2c. Relationship of label pixel to those to the left and above it,','superimposed on the linear regression surface.'});
-% xlabel('left of label');
-% ylabel('above label');
-% zlabel('label');
+%[dim1, dim2] = meshgrid(0:0.01:1,0:0.01:1);
+%ysurf = [[dim1(:), dim2(:)], ones(numel(dim1),1)]*w;
+%figure;
+%surf(dim1, dim2, reshape(ysurf, size(dim1)))
+%hold on
+%scatter3(xtrnfDown(:,end),xtrnfDown(:,end-34),ytrnfDown);
+%title({'2c. Relationship of label pixel to those to the left and above it,','superimposed on the linear regression surface.'});
+%xlabel('left of label');
+%ylabel('above label');
+%zlabel('label');
